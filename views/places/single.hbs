@@ -1,0 +1,39 @@
+<h1>Place details</h1>
+
+<h3>{{ place.name }}</h3>
+<h4>{{place.type}}</h4>
+<h6>Latitude: {{ place.location.coordinates.[1] }}</h6>
+<h6>Longitude: {{ place.location.coordinates.[0] }}</h6>
+
+<a href="/places/{{place._id}}/edit">Edit Place details</a>
+
+
+<form method="POST" action="/places/{{ place._id }}/delete">
+  <button>Delete Place</button>
+</form>
+
+<div id="map-container"></div>
+
+<script>
+  function init () {
+    const mapContainerElement = document.getElementById('map-container');
+    const map = new window.google.maps.Map(mapContainerElement, {
+      center: {
+        lat: 38.75,
+        lng: -9.15
+      },
+      zoom: 10
+    });
+    const longitude = {{ place.location.coordinates.[0] }};
+    const latitude = {{ place.location.coordinates.[1] }};
+    const marker = new window.google.maps.Marker({
+      map,
+      position: {
+        lat: latitude,
+        lng: longitude
+      }
+    });
+  }
+</script>
+
+{{> mapscript}}
