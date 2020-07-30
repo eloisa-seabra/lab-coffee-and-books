@@ -43,7 +43,7 @@ router.get('/:id/edit', (req, res, next) => {
   Place.findById(id)
     .then(place => {
       if (place) {
-        res.render('places/edit');
+        res.render('places/edit', { place });
       } else {
         next();
       }
